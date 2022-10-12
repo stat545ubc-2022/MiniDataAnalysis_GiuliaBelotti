@@ -52,7 +52,7 @@ By the end of this milestone, you should:
 
 The `datateachr` package by Hayley Boyce and Jordan Bourak currently composed of 7 semi-tidy datasets for educational purposes. Here is a brief description of each dataset:
   
-  -   *apt_buildings*: Acquired courtesy of The City of Toronto's Open Data Portal. It currently has 3455 rows and 37 columns.
+-   *apt_buildings*: Acquired courtesy of The City of Toronto's Open Data Portal. It currently has 3455 rows and 37 columns.
 
 -   *building_permits*: Acquired courtesy of The City of Vancouver's Open Data Portal. It currently has 20680 rows and 14 columns.
 
@@ -80,10 +80,10 @@ And that is exactly the first thing that you will do!
 
 <!-------------------------- Start your work below ---------------------------->
   
-  1: CHOICE_1\_HERE\
-2: CHOICE_2\_HERE\
-3: CHOICE_3\_HERE\
-4: CHOICE_4\_HERE
+1: apt_buildings
+2: building_permits
+3: parking_meters
+4: vancouver_trees
 
 <!----------------------------------------------------------------------------->
   
@@ -94,23 +94,81 @@ And that is exactly the first thing that you will do!
   <!-------------------------- Start your work below ---------------------------->
   
   ```{r}
-### EXPLORE HERE ###
-steam_games
-```
+
+# I am now exploring the 4 datasets. To do so, I am using the print(), glimpse(), and dim() functions on all dataset. I want to see the number of rows and columns, but also the variables in each dataset.  
+
+#Here, I explore the apt_buildings dataset
+
+print(apt_buildings)
+glimpse(apt_buildings)
+dim(apt_buildings)
+class(apt_buildings)
+
+#Here, I explore the building_permits dataset
+
+print(building_permits)
+glimpse(building_permits)
+dim(building_permits)
+class(building_permits)
+
+#Here, I explore the parking_meters dataset 
+
+print(parking_meters)
+glimpse(parking_meters)
+dim(parking_meters)
+class(parking_meters)
+
+#Here, I explore the vancouver_trees dataset
+
+print(vancouver_trees)
+glimpse(vancouver_trees)
+dim(vancouver_trees)
+class(vancouver_trees)
+
+#Now I know the number of rows, the number of columns, the class type, and the variables associated with each dataset. 
 
 <!----------------------------------------------------------------------------->
   
-  1.3 Now that you've explored the 4 datasets that you were initially most interested in, let's narrow it down to 2. What lead you to choose these 2? Briefly explain your choices below, and feel free to include any code in your explanation.
+1.3 Now that you've explored the 4 datasets that you were initially most interested in, let's narrow it down to 2. What lead you to choose these 2? Briefly explain your choices below, and feel free to include any code in your explanation.
 
-<!-------------------------- Start your work below ---------------------------->
+apt_buildings %>%
+  select(c(heating_type, bike_parking, no_of_storeys, no_of_units, parking_type)) %>%
+  print(n = Inf)
+
+building_permits %>%
+  select(c(project_value, type_of_work, property_use, specific_use_category)) %>% 
+  print(n = Inf)
+
+parking_meters %>%
+  select(c(r_mf_9a_6p, credit_card, pay_phone, geo_local_area)) %>%
+  print(n = 50)
+
+vancouver_trees %>%
+  select(c(common_name, on_street, neighbourhood_name, height_range_id, date_planted)) %>%
+  print(n = 50)
+
+#After exploring the 4 datasets, I find the "apt_buildings" and the "building_permits" dataset the most interesting ones. I came to this conclusion after further exploring the datasets, this time by selecting one or more variables of interest. I found the observations associated with one or more variables of some datasets more interesting than others and therefore I decided to pick those, since they will make it easier for me to identify a research question.  
   
-  <!----------------------------------------------------------------------------->
-  
+
   1.4 Time for the final decision! Going back to the beginning, it's important to have an *end goal* in mind. For example, if I had chosen the `titanic` dataset for my project, I might've wanted to explore the relationship between survival and other variables. Try to think of 1 research question that you would want to answer with each dataset. Note them down below, and make your final choice based on what seems more interesting to you!
   
   <!-------------------------- Start your work below ---------------------------->
-  
-  <!----------------------------------------------------------------------------->
+ 
+# I am now going to try to identify 1 research question for each dataset initially selected and I will eventually identify the most interesting research question, which will allow me to choose the dataset I want to work with for this mini data analysis. 
+    
+    For the apt_buildings dataset, I have identified the following research question:
+    - Do buildings with more storeys also come with more amenities and balconies? 
+    
+    For the building_permits dataset, I have identified the following research question:
+    - What is the primary use category of new buildings in Vancouver?
+    
+    For the parking_meters dataset, I have identified the following research question: 
+    - In what areas of the city is parking more expensive?
+    
+    For the vancouver_trees dataset, I have identified the following research question: 
+    - What is the Vancouver neighborhood where most new trees are being planted?
+    
+#After trying to identify a research question for each dataset, I decided to work with the apt_buildings dataset, since it will allow me to explore multiple an area of interest - that of livability in the city. 
   
   # Important note
   
@@ -130,14 +188,15 @@ If we rewind and go back to the learning objectives, you'll see that by the end 
 4.  Explore the relationship between 2 variables in a plot.
 5.  Filter observations in your data according to your own criteria. Think of what you'd like to explore - again, if this was the `titanic` dataset, I may want to narrow my search down to passengers born in a particular year...
 6.  Use a boxplot to look at the frequency of different observations within a single variable. You can do this for more than one variable if you wish!
-  7.  Make a new tibble with a subset of your data, with variables and observations that you are interested in exploring.
+7.  Make a new tibble with a subset of your data, with variables and observations that you are interested in exploring.
 8.  Use a density plot to explore any of your variables (that are suitable for this type of plot).
 
 2.2 For each of the 4 exercises that you complete, provide a *brief explanation* of why you chose that exercise in relation to your data (in other words, why does it make sense to do that?), and sufficient comments for a reader to understand your reasoning and code.
 
-<!-------------------------- Start your work below ---------------------------->
-  
-  <!----------------------------------------------------------------------------->
+# <!-------------------------- Start your work below ---------------------------->
+
+ ggplot(apt_buildings, aes(x = year_built, y = no_of_storeys)) + 
+  geom_line()
   
   # Task 3: Write your research questions (5 points)
   
@@ -170,7 +229,10 @@ Ensure that the output of each operation is printed!
 8.  Create 3 histograms out of summarized variables, with each histogram having different sized bins. Pick the "best" one and explain why it is the best.
 
 Make sure it's clear what research question you are doing each operation for!
+                                                                                                                                                                                                                                                                                                                                                                       <!------------------------- Start your work below ----------------------------->
                                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                       <!----------------------------------------------------------------------------->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
                                                                                                                                                                                                                                                                                                                                                                        
                                                                                                                                                                                                                                                                                                                                                                        
                                                                                                                                                                                                                                                                                                                                                                        
@@ -179,9 +241,7 @@ Make sure it's clear what research question you are doing each operation for!
                                                                                                                                                                                                                                                                                                                                                                        
                                                                                                                                                                                                                                                                                                                                                                        
                                                                                                                                                                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                                                                                                                <!------------------------- Start your work below ----------------------------->
-                                                                                                                                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                                                                                                                 <!----------------------------------------------------------------------------->
+                                                                                                                                                                                                                                                                                                                                
                                                                                                                                                                                                                                                                                                                                                                        
                                                                                                                                                                                                                                                                                                                                                                        ### 1.2 (3 points)
                                                                                                                                                                                                                                                                                                                                                                        
