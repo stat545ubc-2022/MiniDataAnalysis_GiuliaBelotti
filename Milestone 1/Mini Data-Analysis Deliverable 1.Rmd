@@ -1,0 +1,631 @@
+---
+title: "Mini Data-Analysis Deliverable 1"
+author: "Giulia Belotti"
+date: "2022-10-10"
+output: github_document
+---
+
+# Welcome to your (maybe) first-ever data analysis project!
+  
+And hopefully the first of many. Let's get started:
+
+1.  Install the [`datateachr`](https://github.com/UBC-MDS/datateachr) package by typing the following into your **R terminal**:
+
+<!-- -->
+
+    install.packages("devtools")
+    devtools::install_github("UBC-MDS/datateachr")
+
+2.  Load the packages below.
+
+```{r}
+
+# Clean workspace; Clear console
+rm(list=ls()); cat("\014") 
+
+# Load packages 
+library(datateachr)
+library(tidyverse)
+
+```
+
+3.  Make a repository in the <https://github.com/stat545ubc-2022> Organization. You will be working with this repository for the entire data analysis project. You can either make it public, or make it private and add the TA's and Lucy as collaborators. A link to help you create a private repository is available on the #collaborative-project Slack channel. 
+
+# Instructions
+
+## For Both Milestones
+
+-   Each milestone is worth 45 points. The number of points allocated to each task will be annotated within each deliverable. Tasks that are more challenging will often be allocated more points.
+
+-   10 points will be allocated to the reproducibility, cleanliness, and coherence of the overall analysis. While the two milestones will be submitted as independent deliverables, the analysis itself is a continuum - think of it as two chapters to a story. Each chapter, or in this case, portion of your analysis, should be easily followed through by someone unfamiliar with the content. [Here](https://swcarpentry.github.io/r-novice-inflammation/06-best-practices-R/) is a good resource for what constitutes "good code". Learning good coding practices early in your career will save you hassle later on!
+  
+## For Milestone 1
+  
+**To complete this milestone**, edit [this very `.Rmd` file](https://raw.githubusercontent.com/UBC-STAT/stat545.stat.ubc.ca/master/content/mini-project/mini-project-1.Rmd) directly. Fill in the sections that are tagged with `<!--- start your work below --->`.
+
+**To submit this milestone**, make sure to knit this `.Rmd` file to an `.md` file by changing the YAML output settings from `output: html_document` to `output: github_document`. Commit and push all of your work to the mini-analysis GitHub repository you made earlier, and tag a release on GitHub. Then, submit a link to your tagged release on canvas.
+
+**Points**: This milestone is worth 45 points: 43 for your analysis, 1 point for having your Milestone 1 document knit error-free, and 1 point for tagging your release on Github.
+
+# Learning Objectives
+
+By the end of this milestone, you should:
+  
+-   Become familiar with your dataset of choosing
+-   Select 4 questions that you would like to answer with your data
+-   Generate a reproducible and clear report using R Markdown
+-   Become familiar with manipulating and summarizing your data in tibbles using `dplyr`, with a research question in mind.
+
+# Task 1: Choose your favorite dataset (10 points)
+
+The `datateachr` package by Hayley Boyce and Jordan Bourak currently composed of 7 semi-tidy datasets for educational purposes. Here is a brief description of each dataset:
+  
+-   *apt_buildings*: Acquired courtesy of The City of Toronto's Open Data Portal. It currently has 3455 rows and 37 columns.
+
+-   *building_permits*: Acquired courtesy of The City of Vancouver's Open Data Portal. It currently has 20680 rows and 14 columns.
+
+-   *cancer_sample*: Acquired courtesy of UCI Machine Learning Repository. It currently has 569 rows and 32 columns.
+
+-   *flow_sample*: Acquired courtesy of The Government of Canada's Historical Hydrometric Database. It currently has 218 rows and 7 columns.
+
+-   *parking_meters*: Acquired courtesy of The City of Vancouver's Open Data Portal. It currently has 10032 rows and 22 columns.
+
+-   *steam_games*: Acquired courtesy of Kaggle. It currently has 40833 rows and 21 columns.
+
+-   *vancouver_trees*: Acquired courtesy of The City of Vancouver's Open Data Portal. It currently has 146611 rows and 20 columns.
+
+**Things to keep in mind**
+
+-   We hope that this project will serve as practice for carrying our your own *independent* data analysis. Remember to comment your code, be explicit about what you are doing, and write notes in this markdown document when you feel that context is required. As you advance in the project, prompts and hints to do this will be diminished - it'll be up to you!
+  
+  -   Before choosing a dataset, you should always keep in mind **your goal**, or in other ways, *what you wish to achieve with this data*. This mini data-analysis project focuses on *data wrangling*, *tidying*, and *visualization*. In short, it's a way for you to get your feet wet with exploring data on your own.
+
+And that is exactly the first thing that you will do!
+
+1.1 Out of the 7 datasets available in the `datateachr` package, choose **4** that appeal to you based on their description. Write your choices below:
+
+**Note**: We encourage you to use the ones in the `datateachr` package, but if you have a dataset that you'd really like to use, you can include it here. But, please check with a member of the teaching team to see whether the dataset is of appropriate complexity. Also, include a **brief** description of the dataset here to help the teaching team understand your data.
+
+<!-------------------------- Start your work below ---------------------------->
+
+1: apt_buildings
+2: building_permits
+3: parking_meters
+4: vancouver_trees
+
+<!----------------------------------------------------------------------------->
+  
+1.2 One way to narrowing down your selection is to *explore* the datasets. Use your knowledge of dplyr to find out at least *3* attributes about each of these datasets (an attribute is something such as number of rows, variables, class type...). The goal here is to have an idea of *what the data looks like*.
+
+*Hint:* This is one of those times when you should think about the cleanliness of your analysis. I added a single code chunk for you below, but do you want to use more than one? Would you like to write more comments outside of the code chunk?
+  
+  <!-------------------------- Start your work below ---------------------------->
+  
+I am now exploring the 4 datasets. To do so, I am using the print(), glimpse(), dim(), and class() functions on all dataset. I want to see the number of rows and columns, the variables in each dataset, and have an idea of the overall structure of the data.
+
+Here, I explore the apt_buildings dataset
+
+```{r}
+
+print(apt_buildings)
+glimpse(apt_buildings)
+dim(apt_buildings)
+class(apt_buildings)
+
+```
+
+Here, I explore the building_permits dataset
+
+```{r}
+
+print(building_permits)
+glimpse(building_permits)
+dim(building_permits)
+class(building_permits)
+
+```
+
+Here, I explore the parking_meters dataset 
+
+```{r}
+
+print(parking_meters)
+glimpse(parking_meters)
+dim(parking_meters)
+class(parking_meters)
+
+```
+
+Here, I explore the vancouver_trees dataset
+
+```{r}
+print(vancouver_trees)
+glimpse(vancouver_trees)
+dim(vancouver_trees)
+class(vancouver_trees)
+
+```
+
+Now I know the number of rows, the number of columns, the class type, and the variables associated with each dataset. 
+<!----------------------------------------------------------------------------->
+  
+1.3 Now that you've explored the 4 datasets that you were initially most interested in, let's narrow it down to 2. What lead you to choose these 2? Briefly explain your choices below, and feel free to include any code in your explanation.
+
+```{r}
+
+apt_buildings %>%
+  select(c(heating_type, bike_parking, no_of_storeys, no_of_units, parking_type)) %>%
+  print(n = 50)
+
+building_permits %>%
+  select(c(project_value, type_of_work, property_use, specific_use_category)) %>% 
+  print(n = 50)
+
+parking_meters %>%
+  select(c(r_mf_9a_6p, credit_card, pay_phone, geo_local_area)) %>%
+  print(n = 50)
+
+vancouver_trees %>%
+  select(c(common_name, on_street, neighbourhood_name, height_range_id, date_planted)) %>%
+  print(n = 50)
+  
+```
+
+After exploring the 4 datasets, I find the "apt_buildings" and the "building_permits" dataset the most interesting ones. I came to this conclusion after further exploring the datasets, this time by selecting one or more variables of interest. I found the observations associated with one or more variables of some datasets more interesting than others and therefore I decided to pick those, since they will make it easier for me to identify one (or more) research question(s).  
+  
+
+1.4 Time for the final decision! Going back to the beginning, it's important to have an *end goal* in mind. For example, if I had chosen the `titanic` dataset for my project, I might've wanted to explore the relationship between survival and other variables. Try to think of 1 research question that you would want to answer with each dataset. Note them down below, and make your final choice based on what seems more interesting to you!
+  
+<!-------------------------- Start your work below ---------------------------->
+ 
+I am now going to try to identify 1 research question for each dataset initially selected and I will eventually identify the most interesting research question, which will allow me to choose the dataset I want to work with for this mini data analysis. 
+
+
+For the apt_buildings dataset, I have identified the following research question:
+    - What can the features of the various apartment buindings in the city of Toronto tell us about livability, accessibility, and affordability of the city? 
+    
+For the building_permits dataset, I have identified the following research question:
+    - What is the primary use category of new buildings in Vancouver?
+    
+For the parking_meters dataset, I have identified the following research question: 
+    - In what areas of the city is parking more expensive?
+    
+For the vancouver_trees dataset, I have identified the following research question: 
+    - What is the Vancouver neighborhood where most new trees are being planted?
+    
+    
+After trying to identify a research question for each dataset, I decided to work with the apt_buildings dataset, since it will allow me to explore an area of interest - the urban environment. 
+  
+  # Important note
+  
+Read Tasks 2 and 3 *fully* before starting to complete either of them. Probably also a good point to grab a coffee to get ready for the fun part!
+  
+This project is semi-guided, but meant to be *independent*. For this reason, you will complete tasks 2 and 3 below (under the **START HERE** mark) as if you were writing your own exploratory data analysis report, and this guidance never existed! Feel free to add a brief introduction section to your project, format the document with markdown syntax as you deem appropriate, and structure the analysis as you deem appropriate. Remember, marks will be awarded for completion of the 4 tasks, but 10 points of the whole project are allocated to a reproducible and clean analysis. If you feel lost, you can find a sample data analysis [here](https://www.kaggle.com/headsortails/tidy-titarnic) to have a better idea. However, bear in mind that it is **just an example** and you will not be required to have that level of complexity in your project.
+
+# Task 2: Exploring your dataset (15 points)
+
+If we rewind and go back to the learning objectives, you'll see that by the end of this deliverable, you should have formulated *4* research questions about your data that you may want to answer during your project. However, it may be handy to do some more exploration on your dataset of choice before creating these questions - by looking at the data, you may get more ideas. **Before you start this task, read all instructions carefully until you reach START HERE under Task 3**.
+
+2.1 Complete *4 out of the following 8 exercises* to dive deeper into your data. All datasets are different and therefore, not all of these tasks may make sense for your data - which is why you should only answer *4*. Use *dplyr* and *ggplot*.
+
+1.  Plot the distribution of a numeric variable.
+2.  Create a new variable based on other variables in your data (only if it makes sense)
+3.  Investigate how many missing values there are per variable. Can you find a way to plot this?
+4.  Explore the relationship between 2 variables in a plot.
+5.  Filter observations in your data according to your own criteria. Think of what you'd like to explore - again, if this was the `titanic` dataset, I may want to narrow my search down to passengers born in a particular year...
+6.  Use a boxplot to look at the frequency of different observations within a single variable. You can do this for more than one variable if you wish!
+7.  Make a new tibble with a subset of your data, with variables and observations that you are interested in exploring.
+8.  Use a density plot to explore any of your variables (that are suitable for this type of plot).
+
+2.2 For each of the 4 exercises that you complete, provide a *brief explanation* of why you chose that exercise in relation to your data (in other words, why does it make sense to do that?), and sufficient comments for a reader to understand your reasoning and code.
+
+# <!-------------------------- Start your work below ---------------------------->
+
+Exercise 2. Create a new variable based on other variables in your data (only if it makes sense)
+
+To start exploring my data, I would like to know more about the ratio between the number of storeys in a certain building and the number of elevators in the same building. For this reason, I am creating a new variable by using the function mutate(). I am calling the new variable "ratio_elev_storeys", which is the result of the number of storeys divided by the number of elevators in each building in the dataset. I am then selecting the new variable created and then everything else to be able to immediately visualize the ratio in my dataset.
+
+```{r}
+
+mutate(apt_buildings, ratio_elev_storeys = no_of_storeys/no_of_elevators) %>%
+select(ratio_elev_storeys, everything())
+
+```
+
+
+Exercise 3. Investigate how many missing values there are per variable. Can you find a way to plot this?
+
+Following is the first operation I ran in order to find the missing values per each variable. Although I thought there must be a way to do this more easily, I started by taking every single variable and finding the number of missing values in every single one of them. 
+
+```{r}
+
+sum(is.na(apt_buildings$amenities))
+
+sum(is.na(apt_buildings$balconies))
+
+sum(is.na(apt_buildings$barrier_free_accessibilty_entr))
+
+sum(is.na(apt_buildings$bike_parking))
+
+sum(is.na(apt_buildings$exterior_fire_escape))
+
+sum(is.na(apt_buildings$fire_alarm))
+
+sum(is.na(apt_buildings$garbage_chutes))
+
+sum(is.na(apt_buildings$heating_type))
+
+sum(is.na(apt_buildings$intercom))
+
+sum(is.na(apt_buildings$laundry_room))
+
+sum(is.na(apt_buildings$locker_or_storage_room))
+
+sum(is.na(apt_buildings$no_of_elevators))
+
+sum(is.na(apt_buildings$parking_type))
+
+sum(is.na(apt_buildings$pets_allowed))
+
+sum(is.na(apt_buildings$prop_management_company_name))
+
+sum(is.na(apt_buildings$property_type))
+
+sum(is.na(apt_buildings$rsn))
+
+sum(is.na(apt_buildings$separate_gas_meters))
+
+sum(is.na(apt_buildings$separate_hydro_meters))
+
+sum(is.na(apt_buildings$separate_water_meters))
+
+sum(is.na(apt_buildings$site_address))
+
+sum(is.na(apt_buildings$sprinkler_system))
+
+sum(is.na(apt_buildings$visitor_parking))
+
+sum(is.na(apt_buildings$ward))
+
+sum(is.na(apt_buildings$window_type))
+
+sum(is.na(apt_buildings$year_built))
+
+sum(is.na(apt_buildings$year_registered))
+
+sum(is.na(apt_buildings$no_of_storeys))
+
+sum(is.na(apt_buildings$emergency_power))
+
+sum(is.na(apt_buildings$no_of_units))
+
+sum(is.na(apt_buildings$no_of_accessible_parking_spaces))
+
+sum(is.na(apt_buildings$facilities_available))
+
+sum(is.na(apt_buildings$cooling_room))
+
+sum(is.na(apt_buildings$no_barrier_free_accessible_units))
+
+```
+
+By running this function for each variable, I found that some variables (bike_parking, property_type, rsn, site_address, ward, no_of_storeys, no_of_units and facilities_available) do not have any missing values. 
+
+Nonetheless, I found this way of finding missing values extremely inefficient, therefore I tried to apply a different code to find missing values. Following, the code I used to find missing values for each variable in a more efficient way:
+
+```{r}
+
+missing.values <- apt_buildings %>%
+    gather(key = "key", value = "val") %>%
+    mutate(is.missing = is.na(val)) %>%
+    group_by(key, is.missing) %>%
+    summarise(num.missing = n()) %>%
+    filter(is.missing==T) %>%
+    select(-is.missing) %>%
+    arrange(desc(num.missing)) 
+
+missing.values
+
+```
+
+I will now plot try to plot the number of missing values as follows:
+
+```{r}
+
+missing.values %>%
+  ggplot() +
+    geom_bar(aes(x=key, y=num.missing), stat = 'identity') +
+    labs(x='variable', y="number of missing values", title='Number of missing values') +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+As we can see, it is easier to determine which variables have more missing values graphically - the variables "amenities" and "management_company_name" have a high number of missing values compared to other variables. 
+
+
+Exercise 5. Filter observations in your data according to your own criteria. Think of what you'd like to explore. 
+
+```{r}
+
+apt_buildings %>% 
+  filter(year_built %in% c("1980":"2019")) %>%
+  select(year_built, everything())
+
+```
+
+Here, I decided to filter observations by the variable "year_built" and I only considered apartments built between 1980 and 2019. In fact, I am not particularly interested in observations before 1980.
+
+
+Exercise 7. Make a new tibble with a subset of your data, with variables and observations that you are interested in exploring.
+
+```{r}
+
+apt_buildings_2 <- as_tibble(apt_buildings) %>%
+  filter(year_built > 1980) %>%
+  select(year_built, amenities, balconies, barrier_free_accessibilty_entr, bike_parking, no_of_elevators, no_of_storeys, no_of_units, no_barrier_free_accessible_units)
+
+```
+
+Here, I created a new tibble only including variables that I am interested in further exploring. Since I would like to investigate the apt_buildings dataset in terms of livability, accessibility, and sustainability, I believe that subsetting data by only including variables like "barrier_free_accessibilty_entr" and "no_of_elevators" would be ideal.
+
+
+# Task 3: Write your research questions (5 points)
+  
+So far, you have chosen a dataset and gotten familiar with it through exploring the data. Now it's time to figure out 4 research questions that you would like to answer with your data! Write the 4 questions and any additional comments at the end of this deliverable. These questions are not necessarily set in stone - TAs will review them and give you feedback; therefore, you may choose to pursue them as they are for the rest of the project, or make modifications!
+
+<!--- *****START HERE***** --->
+
+1. Many cities in North America are trying to add density in order to reduce GHG emissions by creating "walkable communities" or introducing neighborhood energy systems. Furthermore, many experts claim that adding more density will help tackling the housing affordability crisis. In light of this, how many units has the city of Toronto built per year since the 1980s? 
+
+2. When adding density to a city, one of the main concerns is livability. Adding density might mean reducing green spaces and having more dwellings but less amenities. In light of this, it is important to determine whether new buildings come with amenities and balconies, which might improve their quality of life. What types of amenities have been added to buildings throughout the years? And how many balconies? Is the increase in balconies and amenities proportional to the increase in units? 
+
+3. Accessibility is also an important issue when it comes to apartment buildings. How many apartments have barrier free accessibility entrances, and barrier free accessible units? And what is the ratio of elevators per number of storeys in buildings? These can be measures of accessibility. 
+
+4. Finally, we are going to discuss affordability. Many experts claim that housing prices are not a result of demand and supply forces and thus prices will keep raising even if more units are built. Rather, cities need to build more social housing to face the affordability crisis. Has the city of Toronto built more social housing throughout the years?
+
+
+# Task 4: Process and summarize your data (13 points)
+
+From Task 2, you should have an idea of the basic structure of your dataset (e.g. number of rows and columns, class types, etc.). Here, we will start investigating your data more in-depth using various data manipulation functions.
+
+### 1.1 (10 points)
+
+Now, for each of your four research questions, choose one task from options 1-4 (summarizing), and one other task from 4-8 (graphing). You should have 2 tasks done for each research question (8 total). Make sure it makes sense to do them! (e.g. don't use a numerical variables for a task that needs a categorical variable.). Comment on why each task helps (or doesn't!) answer the corresponding research question.
+
+Ensure that the output of each operation is printed!
+
+**Summarizing:**
+
+1.  Compute the *range*, *mean*, and *two other summary statistics* of **one numerical variable** across the groups of **one categorical variable** from your data.
+2.  Compute the number of observations for at least one of your categorical variables. Do not use the function `table()`!
+3.  Create a categorical variable with 3 or more groups from an existing numerical variable. You can use this new variable in the other tasks! *An example: age in years into "child, teen, adult, senior".*
+4.  Based on two categorical variables, calculate two summary statistics of your choosing.
+
+**Graphing:**
+
+5.  Create a graph out of summarized variables that has at least two geom layers.
+6.  Create a graph of your choosing, make one of the axes logarithmic, and format the axes labels so that they are "pretty" or easier to read.
+7.  Make a graph where it makes sense to customize the alpha transparency.
+8.  Create 3 histograms out of summarized variables, with each histogram having different sized bins. Pick the "best" one and explain why it is the best.
+
+Make sure it's clear what research question you are doing each operation for!
+                                                                                                                                                                                                                                            <!------------------------- Start your work below ----------------------------->
+
+**SUMMARIZING**
+
+*Research Question #1. Apartment density*
+
+```{r}
+
+apt_buildings %>% 
+group_by(year_built) %>% 
+summarise (no_of_units_mean = mean(no_of_units, na.rm = TRUE)) %>%
+print()
+
+```
+
+By running this code, I find the average units per building that have been built each year. This is useful when it comes to answering my first research question. By looking at the results, I can see that the average number of units per building built each year is generally raising. 
+
+```{r}
+
+apt_buildings %>% 
+group_by(year_built) %>% 
+summarise (no_of_units_range = range(no_of_units, na.rm = TRUE)) %>%
+print()
+
+```
+
+Finding the range of the number of units built per year does not really help me answering the first research question.
+
+```{r}
+
+apt_buildings %>% 
+group_by(year_built) %>% 
+summarise (no_of_units_median = median(no_of_units, na.rm = TRUE)) %>%
+print()
+
+```
+
+Finding the median of the number of units built per year does not really help me answering the first research question. 
+
+```{r}
+
+apt_buildings %>% 
+group_by(year_built) %>% 
+summarise (no_of_units_sd = sd(no_of_units, na.rm = TRUE)) %>%
+print()
+
+```
+
+Finding the standard deviation of the number of units built per year does not really help me answering the first research question.
+
+
+*Research Question #2 Amenities*
+
+```{r}
+
+apt_buildings %>%
+count(amenities) %>%
+print()
+
+apt_buildings %>%
+subset(year_built > "1980" & year_built < "2019") %>%
+group_by(year_built) %>% 
+count(amenities) %>%
+print()
+                                                                                                                        
+```
+
+Here, I decided to compute the number of observations of a categorical variable, namely the variable "amenities". While I first did a general count, I then decided to group by year to see the difference in amenities added throughout the years in the various buildings. Although not fully responding to my second research question, this operation gives me interesting insights when it comes to the type of amenities added in the apartment buildings.
+
+
+*Research Question #3 Accessibility*
+
+```{r}
+
+apt_buildings %>%
+group_by(no_of_units) %>%
+count(no_of_elevators)
+
+apt_buildings %>%
+  group_by(no_of_storeys) %>%
+  count(no_of_elevators)
+
+```
+
+Here, I decided to group by the number of units in the buildings and then count the number of elevators to assess accessibility. I then repeated the same operation, but grouped by number of storeys. Although not completely responding to my research questions, these codes give me an idea of accessibility, because it allows me to see how many elevators there are in each building, considering the number of units and then considering the number of storeys. 
+
+
+*Research Question #4 Affordability*
+
+```{r}
+
+apt_buildings %>%
+group_by(year_built) %>% 
+count(property_type) %>%
+print()
+
+```
+
+Here, I grouped the dataset by year and then assessed whether the property type was private or social housing. The tibble I obtained is not too easy to read, but again it gives me an idea of the number of private and social housing buildings per year. I believe this will look better if plotted and thus I will do so in the next section. 
+
+
+
+**GRAPHING**
+
+*Research Question #1 Density*
+
+```{r}
+
+
+apt_buildings %>%
+group_by(year_built) %>%
+filter(year_built %in% c("1980":"2019")) %>%
+summarize(no_of_storeys_mean = mean(no_of_storeys, na.rm = TRUE)) %>%
+ggplot(aes(year_built, no_of_storeys_mean)) +
+geom_col(fill = "light blue") +
+xlab("Year Built") +
+ylab("Average Number of Storeys Built")
+
+apt_buildings %>%
+group_by(year_built) %>%
+filter(year_built %in% c("1980":"2019")) %>%
+summarize(no_of_units_mean = mean(no_of_units, na.rm = TRUE)) %>%
+ggplot(aes(year_built, no_of_units_mean)) +
+geom_col(fill = "orange") +
+xlab("Year Built") +
+ylab("Average Number of Units Built")
+
+```
+
+I plotted the average number of units and the average number of storeys built in a building per year, considering a limited timeframe, namely 1980 - 2019. I can see that starting from 2016/2017 more units and more storeys were built on average in Toronto. This helps answering my first research question. 
+
+
+*Research Question #2*
+
+```{r}
+
+apt_buildings %>%
+group_by(year_built) %>%
+filter(year_built %in% c("1980":"2019")) %>%
+ggplot(, mapping = aes(x = year_built, fill = balconies)) +
+geom_histogram(position = "dodge") 
+
+
+apt_buildings %>%
+group_by(year_built) %>%
+filter(year_built %in% c("1980":"2019")) %>%
+ggplot(, mapping = aes(x = year_built, fill = balconies)) +
+geom_bar(position = "dodge") + 
+geom_histogram(binwidth = 5)
+
+
+apt_buildings %>%
+group_by(year_built) %>%
+filter(year_built %in% c("1980":"2019")) %>%
+ggplot(, mapping = aes(x = year_built, fill = balconies)) +
+geom_bar(position = "dodge") + 
+geom_histogram(binwidth = 1)
+
+```
+
+I wanted to assess whether the number of buildings built with balconies is increasing. As mentioned, balconies are a measure I am using to determine livability. Although not completely responding to my second research question - where I also wanted to investigate amenities as a measure of livability - this plot helps me visualize whether or not new buildings come with balconies. As shown in the graph, the number of balconies in the apartments built is increasing, meaning that more and more buildings come with balconies. In this exercise, I tried to change the size of the bins in the histograms. However, after trying to apply a binwidth of 5 and 1 respectively, I came to the conclusion that the standard size given by the function position("dodge") is the one that best allows me to visualize my data. 
+
+*Research Question #3*
+
+```{r}
+
+apt_buildings %>%
+group_by(year_built) %>%
+filter(year_built %in% c("2000":"2019")) %>%
+ggplot() +
+    geom_point(mapping = aes(x = no_of_elevators, y = no_of_storeys, alpha = year_built), na.rm = TRUE, color = "orange")
+    
+apt_buildings %>%
+group_by(year_built) %>%
+filter(year_built %in% c("2010":"2019")) %>%
+ggplot() + 
+  geom_point(mapping = aes(x = no_of_elevators, y = no_of_units, alpha = year_built), na.rm = TRUE, colour = "blue") 
+
+```
+
+Here, I plotted the number of storeys and the number of units respectively with the number of elevators in each building. I did so in order to determine accessibility to the building and thus respond to my third research question. In the first graph I used the alpha transparency to indicate years and I only considered years from 2000 to 2019. I believe this graph gives me a clear idea of the number of elevators in each apartment building, given the number of storeys. This definitely helps me answering the third research question. Instead, the second graph is slightly harder to read. While trying to apply the alpha transparency to the same time frame (2000 - 2019), I was not satisfied by the results (the graph was unclear and the dots were too close to be readable). Thus, I changed the time frame from 2010 to 2019. Despite this, I believe this plot is less useful when it comes to answering my third research question on accessibility. 
+
+*Research Question #4*
+
+```{r}
+
+apt_buildings %>%
+group_by(year_built) %>%
+filter(year_built %in% c("1980":"2019")) %>%
+ggplot(, mapping = aes(x = year_built, fill = property_type)) +
+geom_histogram(position = "dodge") 
+
+apt_buildings %>%
+group_by(year_built) %>%
+filter(year_built %in% c("1980":"2019")) %>%
+ggplot(, mapping = aes(x = year_built, fill = property_type)) +
+geom_histogram(binwidth = 1)
+
+apt_buildings %>%
+group_by(year_built) %>%
+filter(year_built %in% c("1980":"2019")) %>%
+ggplot(, mapping = aes(x = year_built, fill = property_type)) +
+geom_histogram(binwidth = 0.5)
+
+```
+
+In this last plot I decided to visualize the type of property built in Toronto each year in the time frame from 1980 to 2019. I then tried to apply different bin sizes to the histograms, respectively "standard size", "1" and "0.5". In this case, I find size "0.5" the most useful one when it comes to visualizing and understanding my data. As shown in the third graph, one can clearly see that social housing used to be built more in the past (towards the end of the 1980s and beginning of the 1990s), while now private houses represent a majority. 
+
+<!----------------------------------------------------------------------------->
+                                                                                                                                          ### 1.2 (3 points)
+Based on the operations that you've completed, how much closer are you to answering your research questions? Think about what aspects of your research questions remain unclear. Can your research questions be refined, now that you've investigated your data a bit more? Which research questions are yielding interesting results?
+
+<!-------------------------- Start your work below ---------------------------->
+                                                                                                                      #Based on the operations completed, I feel closer to answering some of my research questions. I am extremely satisfied with my findings for RQ#1 and RQ#4. When it comes to the first question, I now know that the city of Toronto has indeed added more units and storeys throughout the years, thus suggesting that the process of densification is actually happening. As for the fourth question, once I plotted the data I could clearly see that the city of Toronto used to build a significant number of social housing in the 1990s, but it is now prioritizing private properties. This is an aspect worth exploring more in the future, because it affects affordability and the ability of low-middle class residents to stay in the city.
+In turn, some of the questions I posed are split into multiple questions, which did not allow me to fully answer all of them. In this case, found it challenging to plot some of the data that would have helped me respond to my research questions. For instance, when it comes to livability, I wanted to measure it in terms of amenities and balconies, but amenities are categorical values, meaning that creating histograms or using "geom_point" would not yield useful results. Maybe, my research questions on livability and accessibility could be slightly redefined. 
+All in all, this represented an extremely useful exercise, which allowed me to better understand Toronto housing market through a simple dataset. 
+                                                                                                                      <!----------------------------------------------------------------------------->
+
+### Attribution
+Thanks to Icíar Fernández Boyano for mostly putting this together, and Vincenzo Coia for launching.
